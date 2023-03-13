@@ -20,8 +20,6 @@ nahodne_cislo = int(random.randrange(1000,9999,1))
 pocet_pokusu = 0
 cetnost_bull = 0
 
-print(nahodne_cislo)
-
 while cetnost_bull < 4:
     nahodne_cislice = list()
     hadane_cislice = list()
