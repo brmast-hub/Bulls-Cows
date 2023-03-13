@@ -38,6 +38,13 @@ while cetnost_bull < 4:
             cetnost_bull += 1
             if cetnost_bull == 4:
                 print(f"""Correct, you´ve guessed the right number\nin {pocet_pokusu} guesses!\n{"-" * 47}""" )
+                if pocet_pokusu <= 5:
+                    pocet = "amazing"
+                elif pocet_pokusu <=10:
+                    pocet = "average" 
+                else:
+                    pocet = "not so good"
+                print(f"That´s {pocet}")
                 quit()
         else:
             cow_nahodne_cislice.append(str(nahodne_cislo)[num])
