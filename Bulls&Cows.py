@@ -15,13 +15,17 @@ Enter a number:
 {"-" * 47}""")
 
 import random
-nahodne_cislo = int(random.randrange(1000,9999,1))
+nahodne_cislo = list()
+nahodne_cislo.append(str(random.randrange(1,9,1)))
+while len(nahodne_cislo) < 4:
+    nahodna_cifra = str(random.randrange(0,9,1))
+    if nahodna_cifra not in nahodne_cislo:
+        nahodne_cislo.append(nahodna_cifra)
 
 pocet_pokusu = 0
 cetnost_bull = 0
 
-while cetnost_bull < 4:
-    nahodne_cislice = list()
+while cetnost_bull < 4:                              # cyklus hádání čísla, běží dokud se neuhodne 
     hadane_cislice = list()
     cow_nahodne_cislice = list()
     cow_hadane_cislice = list()
@@ -29,12 +33,11 @@ while cetnost_bull < 4:
     cetnost_cow = 0
     hadane_cislo = input(">>>  ")
     pocet_pokusu += 1
-    for num in range(4):
-        nahodne_cislice.append(str(nahodne_cislo)[num])
-        hadane_cislice.append(str(hadane_cislo)[num])
-        if hadane_cislice[num] == nahodne_cislice[num]:
+    for num in range(4):                             # cyklus pro porovnání jednotlivých cifer
+        hadane_cislice.append(hadane_cislo[num])
+        if hadane_cislice[num] == nahodne_cislo[num]:
             cetnost_bull += 1
-            if cetnost_bull == 4:
+            if cetnost_bull == 4:                    # výstup při uhodnotí čísla
                 print(f"""Correct, you´ve guessed the right number\nin {pocet_pokusu} guesses!\n{"-" * 47}""" )
                 if pocet_pokusu <= 5:
                     pocet = "amazing"
@@ -44,10 +47,10 @@ while cetnost_bull < 4:
                     pocet = "not so good"
                 print(f"That´s {pocet}")
                 quit()
-        else:
-            cow_nahodne_cislice.append(str(nahodne_cislo)[num])
-            cow_hadane_cislice.append(str(hadane_cislo)[num])
-    for cislo in range(10):
+        else:                                        # tvorba redukovaných seznamů bez čísel trefených na pozici
+            cow_nahodne_cislice.append((nahodne_cislo)[num])
+            cow_hadane_cislice.append((hadane_cislo)[num])
+    for cislo in range(10):                          # cyklus pro četnost trefených čísel mimo pozici
         cetnost_cow = cetnost_cow + min(cow_nahodne_cislice.count(str(cislo)),cow_hadane_cislice.count(str(cislo)))
     if cetnost_bull == 1:
         bull = " bull"
