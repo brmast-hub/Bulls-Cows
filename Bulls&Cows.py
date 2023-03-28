@@ -5,15 +5,34 @@ email: brmast@seznam.cz
 discord: Martin B.#5188
 """
 
+# statistika her
+odehrane_hry = 0
+statistika_her = open("statistika_Bulls&Cows.txt", mode="r")
+seznam_odehrane_hry = statistika_her.read()
+pocet_odehranych_her = len(seznam_odehrane_hry)
+if pocet_odehranych_her == 0:
+    odehrane_hry = 0
+    prumerny_vysledek = "_"
+    nejlepsi_vysledek = "_"
+else:
+    for pocet in range(pocet_odehranych_her):
+       odehrane_hry += int(seznam_odehrane_hry[pocet])
+    prumerny_vysledek = round(odehrane_hry/pocet_odehranych_her)
+    nejlepsi_vysledek = min(seznam_odehrane_hry)
+statistika_her.close()
+# popis v konzoli
 print(f"""
 Hi there !
 {"-" * 47}
 I´ve generated a random 4 digit number for you.
 Let´s play a bulls and cow game.
+{pocet_odehranych_her} games have been played so far with an average
+result of {prumerny_vysledek} tries, the best result was {nejlepsi_vysledek} tries. 
+Try to be better, good luck.
 {"-" * 47}
 Enter a number:
 {"-" * 47}""")
-
+# generování náhodného čísla
 import random
 nahodne_cislo = list()
 nahodne_cislo.append(str(random.randrange(1,9,1)))
@@ -21,7 +40,7 @@ while len(nahodne_cislo) < 4:
     nahodna_cifra = str(random.randrange(0,9,1))
     if nahodna_cifra not in nahodne_cislo:
         nahodne_cislo.append(nahodna_cifra)
-
+print(nahodne_cislo)
 pocet_pokusu = 0
 cetnost_bull = 0
 # cyklus hádání čísla, běží dokud se neuhodne 
@@ -43,14 +62,19 @@ while cetnost_bull < 4:
         # výstup při uhodnotí čísla
         if hadane_cislice[num] == nahodne_cislo[num]:
             cetnost_bull += 1
-            if cetnost_bull == 4:                           
+            if cetnost_bull == 4:  
+                statistika_her = open("statistika_Bulls&Cows.txt", mode="a")
+                statistika_her.write(str(pocet_pokusu))
+                statistika_her.close()
                 print(f"""Correct, you´ve guessed the right number\nin {pocet_pokusu} guesses!\n{"-" * 47}""" )
-                if pocet_pokusu <= 5:
-                    pocet = "amazing"
-                elif pocet_pokusu <=10:
-                    pocet = "average" 
+                if prumerny_vysledek == "_":
+                    pocet = "your first game."
+                elif pocet_pokusu < (prumerny_vysledek-1):
+                    pocet = "amazing."
+                elif pocet_pokusu <= (prumerny_vysledek+1):
+                    pocet = "average." 
                 else:
-                    pocet = "not so good"
+                    pocet = "not so good."
                 print(f"That´s {pocet}")
                 quit()
         # tvorba redukovaných seznamů bez čísel uhodnutých na pozici
