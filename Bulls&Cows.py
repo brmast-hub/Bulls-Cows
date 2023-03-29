@@ -8,7 +8,8 @@ discord: Martin B.#5188
 # statistika her
 odehrane_hry = 0
 statistika_her = open("statistika_Bulls&Cows.txt", mode="r")
-seznam_odehrane_hry = statistika_her.read()
+seznam_odehrane_hry = statistika_her.read().split()
+print(seznam_odehrane_hry)
 pocet_odehranych_her = len(seznam_odehrane_hry)
 if pocet_odehranych_her == 0:
     odehrane_hry = 0
@@ -40,7 +41,6 @@ while len(nahodne_cislo) < 4:
     nahodna_cifra = str(random.randrange(0,9,1))
     if nahodna_cifra not in nahodne_cislo:
         nahodne_cislo.append(nahodna_cifra)
-print(nahodne_cislo)
 pocet_pokusu = 0
 cetnost_bull = 0
 # cyklus hádání čísla, běží dokud se neuhodne 
@@ -64,7 +64,8 @@ while cetnost_bull < 4:
             cetnost_bull += 1
             if cetnost_bull == 4:  
                 statistika_her = open("statistika_Bulls&Cows.txt", mode="a")
-                statistika_her.write(str(pocet_pokusu))
+                zapis_vysledku = str(pocet_pokusu) + " "
+                statistika_her.write(zapis_vysledku)
                 statistika_her.close()
                 print(f"""Correct, you´ve guessed the right number\nin {pocet_pokusu} guesses!\n{"-" * 47}""" )
                 if prumerny_vysledek == "_":
