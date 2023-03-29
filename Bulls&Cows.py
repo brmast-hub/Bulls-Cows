@@ -7,28 +7,32 @@ discord: Martin B.#5188
 
 # statistika her
 odehrane_hry = 0
+ciselny_seznam_odehrane_hry = list()
 statistika_her = open("statistika_Bulls&Cows.txt", mode="r")
 seznam_odehrane_hry = statistika_her.read().split()
-print(seznam_odehrane_hry)
-pocet_odehranych_her = len(seznam_odehrane_hry)
-if pocet_odehranych_her == 0:
+if len(seznam_odehrane_hry) == 0:
     odehrane_hry = 0
     prumerny_vysledek = "_"
     nejlepsi_vysledek = "_"
 else:
-    for pocet in range(pocet_odehranych_her):
-       odehrane_hry += int(seznam_odehrane_hry[pocet])
-    prumerny_vysledek = round(odehrane_hry/pocet_odehranych_her)
-    nejlepsi_vysledek = min(seznam_odehrane_hry)
+    for pocet in range(len(seznam_odehrane_hry)):
+       ciselny_seznam_odehrane_hry.append(int(seznam_odehrane_hry[pocet])) 
+    odehrane_hry = len(ciselny_seznam_odehrane_hry)
+    prumerny_vysledek = round(sum(ciselny_seznam_odehrane_hry)/len(seznam_odehrane_hry))
+    nejlepsi_vysledek = min(ciselny_seznam_odehrane_hry)
 statistika_her.close()
-# popis v konzoli
+# informace v konzoli
 print(f"""
 Hi there !
 {"-" * 47}
-I´ve generated a random 4 digit number for you.
-Let´s play a bulls and cow game.
-{pocet_odehranych_her} games have been played so far with an average
-result of {prumerny_vysledek} tries, the best result was {nejlepsi_vysledek} tries. 
+I´ve generated a random 4 digit numbers for you.
+Let´s play a bulls and cows game.
+{"-" * 47}""")
+if odehrane_hry == 1:
+    print(f"{odehrane_hry} game has been played so far with an average")
+else:
+    print(f"{odehrane_hry} games have been played so far with an average")
+print(f"""result of {prumerny_vysledek} tries, the best result was {nejlepsi_vysledek} tries. 
 Try to be better, good luck.
 {"-" * 47}
 Enter a number:
